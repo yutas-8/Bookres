@@ -1,0 +1,51 @@
+<div class="body">
+   <div class="container">
+      <p id="notice"></p>
+      <%= notice %>
+      <div class="row">
+
+         <%= render "users/col-xs-3", user: @user %>
+
+         <div class="col-xs-9">
+            
+            <h2>Books</h2>
+            <table class="table table-hover table-inverse">
+               <thead>
+                  <tr>
+                     <th></th>
+                     <th>Title</th>
+                     <th>Opinion</th>
+                     <th colspan="3"></th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <!--ここに自分の投稿を繰り返し投稿できる用にする-->
+                  <% @books.each do |book| %>
+                  <tr>
+                  <th>
+                     <%= link_to user_path(@user.id) do %>
+                        <%= attachment_image_tag @user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no_image1.jpg" %>
+                     <% end %>
+                  </th>
+                  <th>
+                     <%= link_to book_path(book.id) do %>
+                        <%= book.title %>
+                     <% end %>
+                  </th>
+                  <th>
+                     <%= book.body %>
+                  </th>
+                  <!--コメント実装-->
+                  <td>
+                     <i class = "fa fa-comment"></i>
+                     <a href = "#comments"><%= book.book_comment.count %></a>
+                  </td>
+                  <!--コメント実装-->
+                  </tr>
+                  <% end %>
+               </tbody>
+            </table>
+         </div>
+      </div>
+   </div>
+</div>

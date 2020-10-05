@@ -1,0 +1,45 @@
+<!--始：部分テンプレート候補？-->
+<div class="col-xs-3">
+   <h2>User info</h2>
+      <%= attachment_image_tag user, :profile_image, :fill, 100, 100, format: "jpeg", fallback: "no_image.jpg" %>
+      <table class="table">
+      <tbody>
+         <tr></tr>
+         <tr>
+            <th>name</th>
+            <th><%= user.name %></th>
+         </tr>
+         <tr>
+            <th>introduction</th>
+            <th><%= user.introduction %></th>
+         </tr>
+         <%= render "stats" %>
+      </tbody>
+   </table>
+      <div class="row">
+         
+      <!--「自分のアカウントでしか出来ないようにする」まだ未実装-->
+      <% if user.id == current_user.id %>
+         <%= link_to "", edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
+      <% else %>
+         <%= render "follow_form" %>
+      <% end %>
+   </div>
+
+   <h2>New book</h2>
+
+   <%= form_with model: @book, local: true do |f| %>
+   <div class="field row">
+      <label for = "book_title">Title</label>
+         <%= f.text_field :title, class: "col-xs-12 book_title", id: "book_title" %>
+     </div>
+   <div class="field row">
+      <label for="book_opinion">Opinion</label>
+       <%=f.text_area :body, class: "col-xs-12 book_body", id: "book_body" %>
+     </div>
+   <div class="actions row">
+      <%=f.submit "Create Book", class: "btn btn-primary col-xs-12" %>
+   </div>
+   <% end %>
+</div>
+      <!--終：部分テンプレート候補？-->
