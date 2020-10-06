@@ -11,7 +11,9 @@
 
   <body>
     <%= render 'layouts/header' %>
+    
     <div class='body'>
+      <div class="search"><%= render 'layouts/search' %></div>
       <div class='container'>
         <p id="notice"><%= notice %></p>
         <%= yield %>
