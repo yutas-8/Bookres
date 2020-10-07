@@ -1,70 +1,65 @@
-<div class="body">
-   <div class="container">
-      <p id="notice"><%= notice %></p>
-      <div class="row">
-         <%= render "users/col-xs-3", user: current_user %>
-         <div class="col-xs-9">
-             
-            <h2>Users</h2>
-            <table class="table">
-               <thead>
-                  <tr>
-                     <th>image</th>
-                     <th>name</th>
-                     <th colspan="3"></th>
-                  </tr>
-               </thead>
-               <tbody>
-                 <% @users.each do |user| %>
-                     <tr>
-                        <td>
-                           <%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no_image1.jpg" %>
-                        </td>
-                        <td>
-                           <%= user.name %>
-                        </td>
-                        
-                        <% user ||= current_user %>
-                         <td>
-                            follows
-                             <a href="<%=following_user_path(user) %>">
-                             <strong id="following" class="stat">
-                                 <%= user.following.count %>
-                             </strong>
-                         </td>
-                         <td>
-                            followers
-                             <a href="<%=followers_user_path(user) %>">
-                             <strong id="followers" class="stat">
-                                 <%= user.followers.count %>
-                             </strong>
-                         </td>
-                         <td>
-                           <% unless current_user?(user) %>
-                            <div id="follow_form">
-                            <% if current_user.following?(user) %>
-                                <%= form_for(current_user.active_relationships.find_by(followed_id: user.id), html: { method: :delete }) do |f| %>
-                                  <%= f.submit "Unfollow", class: "btn" %>
-                                <% end %>
-                            <% else %>
-                                <%= form_for(current_user.active_relationships.build) do |f| %>
-                                  <div><%= hidden_field_tag :followed_id, user.id %></div>
-                                  <%= f.submit "Follow", class: "btn btn-primary" %>
-                                <% end %>
-                            <% end %>
-                            </div>
-                           <% end %>
-                         </td>
-                        
-                       
-                        <td>
-                           <%= link_to "Show", user_path(user.id) %>
-                        </td>
-                     </tr>
-                  <% end %>
-               </tbody>
-            </table>
-         </div>
-      </div>
-   </div>
+<div class="row">
+ <%= render "users/col-xs-3", user: current_user %>
+ <div class="col-xs-9">
+     
+    <h2>Users</h2>
+    <table class="table">
+       <thead>
+          <tr>
+             <th>image</th>
+             <th>name</th>
+             <th colspan="3"></th>
+          </tr>
+       </thead>
+       <tbody>
+         <% @users.each do |user| %>
+             <tr>
+                <td>
+                   <%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no_image1.jpg" %>
+                </td>
+                <td>
+                   <%= user.name %>
+                </td>
+                
+                <% user ||= current_user %>
+                 <td>
+                    follows
+                     <a href="<%=following_user_path(user) %>">
+                     <strong id="following" class="stat">
+                         <%= user.following.count %>
+                     </strong>
+                 </td>
+                 <td>
+                    followers
+                     <a href="<%=followers_user_path(user) %>">
+                     <strong id="followers" class="stat">
+                         <%= user.followers.count %>
+                     </strong>
+                 </td>
+                 <td>
+                   <% unless current_user?(user) %>
+                    <div id="follow_form">
+                    <% if current_user.following?(user) %>
+                        <%= form_for(current_user.active_relationships.find_by(followed_id: user.id), html: { method: :delete }) do |f| %>
+                          <%= f.submit "Unfollow", class: "btn" %>
+                        <% end %>
+                    <% else %>
+                        <%= form_for(current_user.active_relationships.build) do |f| %>
+                          <div><%= hidden_field_tag :followed_id, user.id %></div>
+                          <%= f.submit "Follow", class: "btn btn-primary" %>
+                        <% end %>
+                    <% end %>
+                    </div>
+                   <% end %>
+                 </td>
+                
+               
+                <td>
+                   <%= link_to "Show", user_path(user.id) %>
+                </td>
+             </tr>
+          <% end %>
+       </tbody>
+    </table>
+ </div>
 </div>

@@ -1,0 +1,6 @@
+<% if book.favorited_by?(current_user) %>
+<!--非同期の為に「remote: true」追加-->
+    <p><%= link_to book.favorites.count, book_favorites_path(book), method: :delete, class: "glyphicon glyphicon-heart", remote: true %></p>
+<% else %>
+    <p><%= link_to book.favorites.count, book_favorites_path(book), method: :post, class: "glyphicon glyphicon-heart-empty", remote: true %></p>
+<% end %>
