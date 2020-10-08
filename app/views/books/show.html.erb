@@ -4,7 +4,7 @@
       <h2>Book detail</h2>
       <table class="table">
          <tbody>
-            <tr>
+            <tr class="book_<%= @books.id %>">
                <td>
                   <%= link_to user_path(@user.id) do %>
                      <%= attachment_image_tag @user, :profile_image, :fill, 40, 40, format: "jpeg", fallback: "no_image.jpg" %>
@@ -26,7 +26,7 @@
                <!--コメント実装-->
                <td>
                   <i class = "fa fa-comment"></i>
-                  <a href = "#comments"><%= @books.book_comment.count %></a>
+                  <div class="comments-count" ><%= @books.book_comment.count %></div>
                </td>
                <!--コメント実装-->
                <% if @user.id == current_user.id %>
@@ -41,16 +41,12 @@
          </tbody>
       </table>
       <!--コメント-->
-      <%= render "comments" %>
-      
-      <%= form_with(model:[@books, @book_comment], local: true) do |f| %>
-         <div class="row">
-            <div class="col-sm-9">
-               <%= f.text_area :comment, rows:"1", class: "form-control", placeholder: "コメントはここに" %>
-            </div>
-         </div>
+      <table class="book_comments"><%= render "book_comments/index", books: @books %></table>
+      <%= form_with(model:[@books, @book_comment]) do |f| %>
+         <%= f.text_area :comment, rows:"3", class: "form-control", placeholder: "コメントはここに" %>
          <%= f.submit "送信", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
       <% end %>
+      
       <!--コメント-->
    </div>
 </div>
